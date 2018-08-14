@@ -18,6 +18,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 public class IndovinaNumeroController {
+	
+	private int NMAX = 100;
+	private int TMAX = 7;
+	
+	private int segreto;
+
+	private int ntentativi;
+	
+	boolean inGame = false;
+	
+	
+	
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -48,11 +60,31 @@ public class IndovinaNumeroController {
 
     @FXML
     void handleNuova(ActionEvent event) {
+    	
+    	this.segreto = (int) (Math.random() * NMAX) + 1;
+    	this.inGame = true;
+    	this.ntentativi = 0;
+    	this.hboxgioco.setDisable(false);
+    	this.txtcur.setText(String.format("%d", this.ntentativi));
+    	this.txtmax.setText(String.format("%d", this.TMAX));
+    	
 
     }
 
     @FXML
     void handletentativo(ActionEvent event) {
+    	String snum = this.txttent.getText();
+    	if (snum.length()== 0){
+    		this.txtlog.setText("Inserire un numero");
+    		return;
+    	}
+    	
+    	try{
+    	int num = Integer.parseInt(snum);
+    	}
+    	catch(NumberFormatException excp){
+    	this.txtlog.appendText("non è un numero");	
+    	}
 
     }
 
