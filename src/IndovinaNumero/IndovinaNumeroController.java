@@ -67,6 +67,7 @@ public class IndovinaNumeroController {
     	this.hboxgioco.setDisable(false);
     	this.txtcur.setText(String.format("%d", this.ntentativi));
     	this.txtmax.setText(String.format("%d", this.TMAX));
+    	this.txtlog.setText("");
     	
 
     }
@@ -75,12 +76,54 @@ public class IndovinaNumeroController {
     void handletentativo(ActionEvent event) {
     	String snum = this.txttent.getText();
     	if (snum.length()== 0){
-    		this.txtlog.setText("Inserire un numero");
+    		this.txtlog.appendText("Inserire un numero");
     		return;
     	}
     	
     	try{
     	int num = Integer.parseInt(snum);
+    	
+    	
+    	 if (num == segreto){
+    		 this.txtlog.appendText("hai vinto \n");
+    			//this.hboxgioco.setDisable(true);
+    			//this.txtlog.setText("");
+    			this.inGame = false;
+    		 
+    	 }
+    	 else{
+    		 this.ntentativi++;
+    			this.txtcur.setText(String.format("%d", this.ntentativi));
+    			if(this.ntentativi== this.TMAX){
+    				this.txtlog.appendText("Hai perso \n");
+    			this.txtlog.appendText("il numero era  \n" + segreto);
+    			this.inGame = false;
+    			}
+    			
+    			else {
+    				if (num < this.segreto){
+    					
+    					this.txtlog.appendText( num + " troppo basso \n");
+    				}
+    			
+    				else{
+    					
+    					this.txtlog.appendText( num + " troppo alto \n");
+    					
+    				}
+    				
+    				
+    				
+    				
+    			}
+    		 
+    		 
+    		 
+    	 }
+    			
+    	
+    	
+    	
     	}
     	catch(NumberFormatException excp){
     	this.txtlog.appendText("non è un numero");	
